@@ -12,7 +12,7 @@ componentDidMount() {
         this.callApi()
             // ^ once Api responds, the below is ran
             .then((response) => {
-                this.setState({ response: response.length + ' items found' })
+                this.setState({ response })
             })
             .catch(err => console.log(err));
     }
@@ -26,14 +26,33 @@ componentDidMount() {
         return body;
     };
 
+    // render() {
+    //     return (
+    //         <div>
+    //             <div>Logos Place holder</div>
+    //             <div>{this.state.response}</div>
+    //         </div>
+    //     )
+    // }
+
     render() {
+        const { response } = this.state;
+        const itemsList = []
+
+        for (const [index, item] of response.entries()) {
+            itemsList.push(<li key={index}>{itemsList.title}</li>)
+        }
         return (
             <div>
-                <div>Logos Place holder</div>
-                <div>{this.state.response}</div>
+                <h1>{response.length} items found</h1>
+                <ul>
+                    {itemsList}
+                </ul>
             </div>
         )
     }
+
+
 }
 
 export default Logos
