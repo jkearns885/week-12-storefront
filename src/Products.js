@@ -1,19 +1,25 @@
 import React from 'react'
-
+// another way to do this:
+// import {Component} from 'react'
+// class Products extends Component { }
 class Products extends React.Component {
     constructor () {
         super()
         this.state = {
-            results: []
+            response: []
         }
     }
 
     componentDidMount() {
         this.callApi()
-        .then(res => this.setState({ response: res.express }))
+        // ^ once Api responds, the below is ran
+        .then((response) => {
+            this.setState({ response: response.length + 'items found'})
+    })
         .catch(err => console.log(err));
-    }
+}
     
+    //asynchronous function call, meaning it will wait
     callApi = async () => {
         const response = await fetch('http://localhost:3001/products');
         const body = await response.json();
